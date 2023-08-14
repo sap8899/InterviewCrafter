@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>JobCrafter</title>
+
+    <style>
+    .button-2 {
+      background-color: rgba(51, 51, 51, 0.05);
+      border-radius: 8px;
+      border-width: 0;
+      color: #333333;
+      cursor: pointer;
+      display: inline-block;
+      font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 10px 12px;
+      text-align: center;
+      transition: all 200ms;
+      vertical-align: baseline;
+      white-space: nowrap;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+    .button-2:hover {
+      box-shadow: #3375DD 0 1px 5px;
+      transition-duration: .1s;
+    }
+
+    #buttonContainer {
+            display: none;
+        }
+    #buttonContainer2 {
+            display: none;
+        }
+    #buttonContainer3 {
+            display: none;
+        }
+
+    #buttonContainer4 {
+            display: none;
+        }
+    #buttonContainerA {
+            display: none;
+        }
+    #final_text {
+            display: none;
+        }
+    html *
+    {
+       font-size: 15px;
+       color: #000 !important;
+       font-family: monospace !important;
+       background-color: #ECF2F6;
+
+    }
+
+
+   .button-36 {
+      background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
+      border-radius: 8px;
+      border-style: none;
+      box-sizing: border-box;
+      color: #FFFFFF;
+      cursor: pointer;
+      flex-shrink: 0;
+      font-family: "Inter UI","SF Pro Display",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+      font-size: 16px;
+      display: inline-block;
+      margin: 4px 2px;
+      height: 2rem;
+      padding: 0 1.6rem;
+      text-align: center;
+      text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
+      transition: all .5s;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+
+    .button-36:hover {
+      box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px;
+      transition-duration: .1s;
+    }
+
+    @media (min-width: 768px) {
+      .button-36 {
+        padding: 0 2.6rem;
+      }
+    }
+    #typed_text {
+            white-space: pre-wrap;
+        }
+
+    #chat_container {
+            width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+        .message {
+            margin-bottom: 10px;
+        }
+    .dark-mode {
+        background-color: #071428;
+        color: #fff;
+    }
+    </style>
+</head>
+<body>
+
+    <script>
+    function displayInput() {
+        var userInput = document.getElementById("user_input").value;
+        document.getElementById("output").textContent = "Hello " + userInput;
+        if (userInput.trim() !== '') {
+                buttonContainerA.style.display = "block";
+        }
+        else {
+                buttonContainerA.style.display = "none";
+        }
+
+
+        // Send an AJAX request to the server
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/run_function", true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.send(JSON.stringify({ user_name: userInput }));
+
+
+    }
+    </script>
+    <label for="user_input">Please enter your name:</label>
+    <input type="text" id="user_input">
+    <button class="button-2" type="button" onclick="displayInput()">Send</button>
+    <p id="output"></p>
+
+   <script>
+
+        function chooseField(field) {
+            // Send an AJAX request to the server
+            document.getElementById("field_text").textContent = field;
+            buttonContainer.style.display = "block";
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/choose_field", true);
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhr.send(JSON.stringify({ selected_field: field }));
+        }
+    </script>
+    <div id="buttonContainerA">
+    <h1>Choose security field</h1>
+    <div class="button-2" onclick="chooseField('AD Security')">AD</div>
+    <div class="button-2" onclick="chooseField('Network Security')">Network</div>
+    <p id="outputE"></p>
+    </div>
+    <div id="field_text"></div>
+
+
+
+
+
+
+
+
+
+
+    <script>
+          function typeText(text) {
+            var typedTextElement = document.getElementById("typed_text");
+            typedTextElement.textContent = "AI: "; // Clear existing text
+            var index = 0;
+
+            function typeNextLetter() {
+                if (index < text.length) {
+                    typedTextElement.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(typeNextLetter, 15); // Delay for 10 ms
+                }
+            }
+
+            typeNextLetter(); // Start typing animation
+        }
+
+        function chooseOption(option) {
+            // Send an AJAX request to the server
+            document.getElementById("option_text").textContent = "Level: " + option;
+
+             var typedTextElementA = document.getElementById("typed_text");
+             typedTextElementA.textContent = "thinking..."; // Clear existing text
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/choose_option", true);
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    typeText(response.result);
+                    buttonContainer2.style.display = "block";
+
+                }
+            };
+            xhr.send(JSON.stringify({ selected_option: option }));
+        }
+    </script>
+    <div id="buttonContainer">
+    <h1>Choose difficulty level</h1>
+    <div class="button-2" onclick="chooseOption('easy')">Easy</div>
+    <div class="button-2" onclick="chooseOption('hard')">Hard</div>
+    <p id="outputA"></p>
+    </div>
+    <div id="option_text"></div>
+    <div id="typed_text"></div>
+
+    <script>
+        function typeFinal(text) {
+            var typedTextElement = document.getElementById("final_text");
+            typedTextElement.textContent = "AI: "; // Clear existing text
+            var index = 0;
+
+            function typeLetter() {
+                if (index < text.length) {
+                    typedTextElement.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(typeLetter, 15); // Delay for 10 ms
+                }
+            }
+
+            typeLetter(); // Start typing animation
+        }
+
+
+        function final_out() {
+            var typedTextElementA = document.getElementById("final_text");
+            typedTextElementA.textContent = "thinking..."; // Clear existing text
+            typedTextElementA.style.display = "block";
+            var qText = document.getElementById("typed_text2");
+            qText.style.display = "none";
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/final_info", true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById("outputFinal").textContent = "Here is your overall summery:";
+                    var response = JSON.parse(xhr.responseText);
+                    // Display the response from the final_info function
+                    //var final_text = document.getElementById("final_text");
+                    typedTextElementA.style.display = "block";
+                    var response = JSON.parse(xhr.responseText);
+                    typeFinal(response.result);
+                }
+            };
+            xhr.send();
+    }
+
+
+        function typeText2(text) {
+            var typedTextElement = document.getElementById("typed_text2");
+            typedTextElement.textContent = "AI: "; // Clear existing text
+            var index = 0;
+
+            function typeNextLetter2() {
+                if (index < text.length) {
+                    typedTextElement.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(typeNextLetter2, 15); // Delay for 10 ms
+                }
+            }
+
+            typeNextLetter2(); // Start typing animation
+        }
+
+        function startChat() {
+            // Send an AJAX request to the server
+            buttonContainer3.style.display = "none";
+            buttonContainer4.style.display = "none";
+            buttonContainer.style.display = "none";
+            buttonContainerA.style.display = "none";
+            var startB = document.getElementById("start_button");
+            startB.style.display = "none";
+            var optionT = document.getElementById("typed_text");
+            optionT.style.display = "none";
+            buttonContainer2.style.display = "none";
+
+            var typedTextElement = document.getElementById("typed_text2");
+            typedTextElement.textContent = "thinking..."; // Clear existing text
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/start_chat", true);
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    typeText2(response.result);
+                    buttonContainer3.style.display = "block";
+                }
+                if (xhr.readyState === 4 && xhr.status === 201) {
+                    final_out()
+                }
+
+            };
+            xhr.send();
+        }
+    </script>
+
+    <div id="buttonContainer2">
+    <div id="start_button" class="button-2" onclick="startChat()">Start</div>
+    <p id="outputB"></p>
+    </div>
+    <div id="typed_text2" style="white-space: pre-wrap;"></div>
+    <p id="outputFinal"></p>
+    <div id="final_text" style="white-space: pre-wrap;"></div>
+
+<script>
+
+    function typeText3(text) {
+            var typedTextElement = document.getElementById("typed_text3");
+            typedTextElement.textContent = "AI: "; // Clear existing text
+            var index = 0;
+
+            function typeNextLetter3() {
+                if (index < text.length) {
+                    typedTextElement.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(typeNextLetter3, 15); // Delay for 10 ms
+                }
+            }
+
+            typeNextLetter3(); // Start typing animation
+        }
+
+
+    function displayInput2() {
+        var userAns = document.getElementById("user_answer").value;
+        document.getElementById("output2").textContent = "Your answer: " + userAns;
+        buttonContainer4.style.display = "none";
+
+        var typedTextElement = document.getElementById("typed_text3");
+        typedTextElement.textContent = "thinking..."; // Clear existing text
+
+        // Send an AJAX request to the server
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/get_ans", true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    typeText3(response.result);
+                    buttonContainer4.style.display = "block";
+                }
+            };
+        xhr.send(JSON.stringify({ user_ans: userAns }));
+
+    }
+    </script>
+    <div id="buttonContainer3">
+    <label for="user_answer">Answer:</label>
+    <input type="text" id="user_answer">
+    <button class="button-2" type="button" onclick="displayInput2()">Send</button>
+    <p id="output2"></p>
+    <div id="typed_text3" style="white-space: pre-wrap;"></div>
+    </div>
+
+     <script>
+        function typeText4(text) {
+            var typedTextElement = document.getElementById("typed_text4");
+            typedTextElement.textContent = "AI: "; // Clear existing text
+            var index = 0;
+
+            function typeNextLetter4() {
+                if (index < text.length) {
+                    typedTextElement.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(typeNextLetter4, 15); // Delay for 10 ms
+                }
+            }
+
+            typeNextLetter4(); // Start typing animation
+        }
+
+        function continueChat() {
+            buttonContainer3.style.display = "none";
+            var typedTextElement3 = document.getElementById("typed_text3");
+            typedTextElement3.textContent = ""; // Clear existing text
+
+            var typedTextElement2 = document.getElementById("typed_text2");
+            typedTextElement2.textContent = ""; // Clear existing text
+
+            document.getElementById("output2").textContent = "";
+            startChat();
+        }
+    </script>
+
+    <div id="buttonContainer4">
+    <div id="continue" class="button-2" onclick="continueChat()">Continue</div>
+    <p id="outputC"></p>
+    </div>
+    <div id="typed_text4" style="white-space: pre-wrap;"></div>
+
+
+
+</body>
+</html>
