@@ -160,12 +160,8 @@ def start_chat():
     q = bard.get_answer(bard_prompt)['content']
 
     double_check_prompt = f"""
-     Make sure you answer follows these guidelines:
-         1. Simulating a job interview
-         2. Using the client name 
-         
-    make sure that this text only contains the question and not the answer,
-     if it contains the answer, return the question without the answer.
+    make sure that this text only contains the question and not the answer or parts of it.
+     if this text contains the answer, return the question without the answer.
      also, make sure the question is technically correct.
      
     text:
