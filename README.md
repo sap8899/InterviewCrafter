@@ -13,3 +13,6 @@ You will need these 2 cookie values, insert them in the code as follows (i kept 
 
 <img width="536" alt="image" src="https://github.com/sap8899/InterviewCrafter/assets/88736901/5e65dff5-c388-4089-976a-15a909577156">
 
+# Some pics of the process:
+<img width="465" alt="image" src="https://github.com/sap8899/InterviewCrafter/assets/88736901/70429302-67f8-41e2-834b-7ac7327ecaa7">
+
