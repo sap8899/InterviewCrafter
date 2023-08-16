@@ -18,3 +18,5 @@ You will need these 2 cookie values, insert them in the code as follows (i kept 
 # Some pics of the process
 <img width="465" alt="image" src="https://github.com/sap8899/InterviewCrafter/assets/88736901/70429302-67f8-41e2-834b-7ac7327ecaa7">
 
+<img width="950" alt="image" src="https://github.com/sap8899/InterviewCrafter/assets/88736901/7329187c-2e36-4da1-b474-9667ff8baa7a">
+
