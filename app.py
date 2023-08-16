@@ -90,8 +90,8 @@ Your response was:
 def create_bard():
     global bard
     cookie_dict = {
-        "__Secure-1PSID": "",
-        "__Secure-1PSIDTS": "",
+        "__Secure-1PSID": "ZghV4ENS-ZZ5R2rTW3h8seGTmh6o-CJaXBDXIco8GrtTheMp3CvbHH2H_TSzcg9-dGZWTw.",
+        "__Secure-1PSIDTS": "sidts-CjIBSAxbGRG5T85gPI7MvwjIJCnlKGwOQkgeuifs62-MCxmh6t-uCY1sDz0HNAEU9VWTdRAA",
     }
     bard = BardCookies(cookie_dict=cookie_dict)
     ans = bard.get_answer(open_prompt)['content']
