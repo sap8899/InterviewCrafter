@@ -1,7 +1,7 @@
 # InterviewCrafter
 Simulates short interviews in the cyber security field. based on Bard
 
-Choose you difficulty level and security field (currently only AD and Network security) and start you interview !
+Choose you difficulty level and security field (currently only AD and Network security) and start your interview !
 * Each time you will get 5 questions and then a final report with the score of your answers.
 * All the questions, answers and scoring are made by Bard 
 
